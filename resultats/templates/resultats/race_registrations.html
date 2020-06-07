@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block body %}
+    <div style="">
+        <div class="hero-title">
+            <h2><img src="../../../static/icons/runner.png" style="margin-right: 10px">Mes inscriptions</h2>
+            <h1>Voir vos inscriptions</h1>
+                    <a class="button btn button-white" style="align-items: center" href="{% url "race_registration_form" %}">S'inscrire à une course</a>
+        </div>
+    </div>
+
+    <div style="display: flex; flex-direction: row; margin-top: 10px; padding: 30px; flex-wrap: wrap; justify-content: center">
+        {% for race in races %}
+            {% include "resultats/tuiles/tuile_race.html" %}
+        {% endfor %}
+    </div>
+{% endblock %}

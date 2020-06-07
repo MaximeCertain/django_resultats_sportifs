@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block body %}
+ <div class="hero-title">
+        <h2><img src="../../../static/icons/runner.png" style="margin-right: 10px">Inscrivez  les résultats de la course</h2>
+        <h1>Gestion des résultats</h1>
+        <a class="button btn button-white" style="align-items: center" href="{% url "race_registrations" %}">Retour</a>
+    </div>
+    <div style="display: flex; justify-content: center; margin-top: 25px;">
+    <div class="card-body table-responsive p-0" style="height: 300px;">
+                <table class="table table-head-fixed text-nowrap">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Nom</th>
+                      <th>age</th>
+                      <th>dossard</th>
+                      <th>Reason</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for r in race.runners.all %}
+                        <tr>
+                      <td>{{ r.id }}</td>
+                      <td>{{ r.user }}</td>
+                      <td>{{ r.age }}</td>
+                      <td>{{ r.bibNumber }}</td>
+                      <td><a class="button btn-primary" href="{% url 'race_save_results' race.id r.id %}">Modifier</a></td>
+                    </tr>
+                   {% endfor %}
+   </tbody>
+                </table>
+              </div>
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block body %}
+ <div class="hero-title">
+        <h2><img src="../../../static/icons/runner.png" style="margin-right: 10px">Enregistrement du temps de coureur sur la course => {{ race.name }}</h2>
+        <h1>{{ runner.user}}</h1>
+        <a class="button btn button-white" style="align-items: center" href="{% url "race_registrations" %}">Retour</a>
+    </div>
+    <div style="display: flex; justify-content: center; margin-top: 25px;">
+    <form action="{% url "race_save_results" id_race id_user %}" method="post">
+        <!--csrf = ceinture de sécurité pour eviter un certain type de pirratage : => envoyer un lien qui va nous forcer en cliquant sur un lien d'exercer des choses (grace aux droits) ont ransmet ainsi les droits à la personne qui piège-->
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="S'inscrire" class="button btn-warning">
+    </form></div>
+
+{% endblock %}

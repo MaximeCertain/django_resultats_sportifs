@@ -1,0 +1,19 @@
+<div style="border-radius: 20px; border: solid 1px #800006cc; width: 450px; box-shadow: 5px 5px 10px 5px #800006cc; margin:20px;
+padding: 10px; justify-content: center" class="text-center">
+    <h2 style="text-transform: uppercase; color:#b02a5c; ">{{ race.name|truncatechars:20 }}</h2>
+    <h3>{{ race.date }}</h3>
+    {% load static %}
+    <img style="border-radius: 20px; height: 220px;  width:100%" src="{% static 'resultats/default.jpg' %}"
+         alt="mon_image">
+    <p style="margin-top: 10px">{{ race.address|truncatechars:50 }}</p>
+   <h5 style="margin-top: 10px; text-transform: uppercase">{{ race.city|truncatechars:50 }}</h5>
+    {% if today|date:"Y-m-d" > race.date|date:"Y-m-d" %}
+      <a class="button btn-warning" style="background-color: #e4606d"
+       href="{% url 'race_results' race.id %}">
+        Résultats
+    </a>
+    {% endif %}
+     {% if user.is_superuser %}
+            <a href="{% url 'race_list_results_admin' race.id %}" class="nav-link">Renseigner résultats de la course</a>
+        {% endif %}
+</div>
