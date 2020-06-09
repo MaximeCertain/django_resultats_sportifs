@@ -1,6 +1,6 @@
 <div style="display: flex;  justify-content: center; background-color: #e4606d; height: 100vh">
     <div style="background-color: #6c757d; border-radius: 20px; padding: 50px
-"><h1>Se connecter</h1>
+"><h1>S'inscrire</h1>
         {% if error %}
             <p><strong>Utilisateur inconnu ou mauvais de mot de passe.</strong></p>
         {% endif %}
@@ -8,12 +8,12 @@
         {% if user.is_authenticated %}
             Vous êtes connecté, {{ user.username }} !
         {% else %}
-            <form method="post" action="{% url "connexion" %}">
+            <form method="post" action="{% url "registration" %}">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <input type="submit" value="Se connecter"/>
             </form>
         {% endif %}
-  <a href="{% url 'registration' %}"> >S'inscrire</a>
-  </div>
+    </div>
+<a href="{% url 'registration' %}"> >S'inscrire</a>
 </div>

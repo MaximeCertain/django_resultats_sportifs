@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block body %}
  <div class="hero-title">
-        <h2><img src="../../../static/icons/runner.png" style="margin-right: 10px">Inscrivez  les résultats de la course</h2>
+ {% load static %}
+        <h2><img src="{% static 'icons/runner.png' %}" style="margin-right: 10px">Inscrivez  les résultats de la course</h2>
         <h1>Gestion des résultats</h1>
         <a class="button btn button-white" style="align-items: center" href="{% url "race_registrations" %}">Retour</a>
     </div>
@@ -14,7 +15,7 @@
                       <th>Nom</th>
                       <th>age</th>
                       <th>dossard</th>
-                      <th>Reason</th>
+                      <th>Modifier chrono</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -23,7 +24,7 @@
                       <td>{{ r.id }}</td>
                       <td>{{ r.user }}</td>
                       <td>{{ r.age }}</td>
-                      <td>{{ r.bibNumber }}</td>
+                      <td>{{ r.bibNumber }} - {{ r.time }}</td>
                       <td><a class="button btn-primary" href="{% url 'race_save_results' race.id r.id %}">Modifier</a></td>
                     </tr>
                    {% endfor %}

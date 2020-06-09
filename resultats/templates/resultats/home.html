@@ -6,7 +6,8 @@
         <h2>
             <img src="../../../static/icons/runner.png" style="margin-right: 10px">Résultats sportifs</h2>
         <h1>Accèder à vos dernières performances</h1>
-        <a class="button btn button-white" style="align-items: center" href="{% url "race_registrations" %}">Mes inscriptions</a>
+               {% if not user.is_superuser %}
+ <a class="button btn button-white" style="align-items: center" href="{% url "race_registrations" %}">Mes inscriptions</a> {% endif %}
     </div>
 </div>
 

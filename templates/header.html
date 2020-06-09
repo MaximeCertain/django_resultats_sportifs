@@ -7,12 +7,16 @@
         <li class="nav-item d-none d-sm-inline-block">
             <a href="{% url "accueil" %}" class="nav-link">Accueil</a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="{% url 'race_registrations' %}" class="nav-link">Mes inscriptions</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="{% url 'race_registration_form' %}" class="nav-link">S'inscrire à une course</a>
-        </li>
+        {% if not user.is_superuser %}
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="{% url 'race_registrations' %}" class="nav-link">Mes inscriptions</a>
+            </li>
+        {% endif %}
+        {% if not user.is_superuser %}
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="{% url 'race_registration_form' %}" class="nav-link">S'inscrire à une course</a>
+            </li>
+        {% endif %}
         <li class="nav-item d-none d-sm-inline-block pull-right">
             <a href="{% url 'deconnexion' %}" class="nav-link">Se Déconnecter</a>
         </li>

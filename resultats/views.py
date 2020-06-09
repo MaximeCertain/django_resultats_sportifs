@@ -3,7 +3,7 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from resultats.models import Race, Runner, RunnerRace
-from .forms import ConnexionForm, RunnerRaceForm, SaveRaceResultsForm
+from .forms import ConnexionForm, RunnerRaceForm, SaveRaceResultsForm, SignUpForm
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -23,15 +23,19 @@ def race_results(request, id_race):
     today = date.today()
     race = Race.objects.get(id=id_race)
    # runners = race.runners.all('race__runnerrace__time')
-    runners = RunnerRace.objects.filter(race=race)
+    runners = RunnerRace.objects.filter(race=race).order_by('time')
     return render(request, 'resultats/race_results.html', locals())
 
 
 @login_required()
 def race_registrations(request):
     today = date.today()
-    runner = Runner.objects.get(id=request.user.id)
-    races = runner.race_set.filter(date__gt=today)
+    try:
+        runner = Runner.objects.get(user__id=request.user.id)
+        races = runner.race_set.filter(date__gt=today)
+    except:
+        runner = None
+        races =None
     return render(request, 'resultats/race_registrations.html', locals()
                   )
 
@@ -66,14 +70,15 @@ def deconnexion(request):
 @login_required()
 def race_registration_form(request):
     renvoi = False
-    runner = Runner.objects.get(id=request.user.id)
+    runner = Runner.objects.get(user__id=request.user.id)
     form = RunnerRaceForm(request.POST or None)
+    #on affiche que els races > aujourdrhui
+    form.fields["race"].queryset = Race.objects.filter(date__gt=date.today())
     form.fields["runner"].initial = runner
     if form.is_valid():
         form.save()
         return redirect('race_registrations')
     return render(request, 'resultats/form_registration_race.html', locals())
-from pprint import pprint
 
 @login_required()
 def race_list_results_admin(request, id_race):
@@ -88,11 +93,19 @@ def race_save_results(request, id_race, id_user):
     race = Race.objects.get(id = id_race)
     rr = RunnerRace.objects.get(runner = runner, race=race)
     form = SaveRaceResultsForm(request.POST or None, instance=rr)
-
     if form.is_valid():
-       # form.fields["runner"].initial = runner
-       # form.fields["race"].initial = race
-
         form.save()
 
     return render(request, 'resultats/form_save_results.html', locals())
+
+
+def registration(request):
+    form = SignUpForm(request.POST)
+    if form.is_valid():
+        user = form.save()
+        runner = Runner(user =user,age=0)
+        runner.save()
+        return redirect(connexion)
+    else:
+        form = SignUpForm()
+    return render(request, 'resultats/registration.html', {'form': form})

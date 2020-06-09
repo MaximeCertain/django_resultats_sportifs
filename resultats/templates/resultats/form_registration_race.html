@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block body %}
     <div class="hero-title">
-        <h2><img src="../../../static/icons/runner.png" style="margin-right: 10px">S'inscrire à une course</h2>
+ {% load static %}
+        <h2><img src="{% static 'icons/runner.png' %}" style="margin-right: 10px">S'inscrire à une course</h2>
         <h1>Inscrivez vous à une course</h1>
         <a class="button btn button-white" style="align-items: center" href="{% url "race_registrations" %}">Retour</a>
     </div>
@@ -9,7 +10,7 @@
         <form action="{% url "race_registration_form" %}" method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <input type="submit" value="S'inscrire" class="button btn-warning">
+                <input type="submit" value="S'inscrire" class="button btn-warning">
         </form>
     </div>
 {% endblock %}

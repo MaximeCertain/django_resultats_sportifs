@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Race, RaceType, RunnerRace
+from .models import Race, RaceType, RunnerRace, Runner
 from django.utils.text import Truncator
 
 class RaceAdmin(admin.ModelAdmin):
@@ -17,3 +17,5 @@ class RaceAdmin(admin.ModelAdmin):
 admin.site.register(RaceType)
 admin.site.register(Race, RaceAdmin)
 admin.site.register(RunnerRace)
+admin.site.register(Runner)
+

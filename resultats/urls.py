@@ -9,6 +9,7 @@ urlpatterns = [
     path(r'^deconnexion$', views.deconnexion, name='deconnexion'),
     path('race/registration_form', views.race_registration_form, name='race_registration_form'),
     path('race/list_results_admin/<int:id_race>', views.race_list_results_admin, name='race_list_results_admin'),
-    path('race/save_results/<int:id_race>/<int:id_user>', views.race_save_results, name='race_save_results')
+    path('race/save_results/<int:id_race>/<int:id_user>', views.race_save_results, name='race_save_results'),
+    path('registration', views.registration, name='registration')
 
 ]
